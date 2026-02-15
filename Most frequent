@@ -1,28 +1,29 @@
 import java.util.*;
 
-public class MostFrequent {
-public static void main(String[] args) {
-Scanner sc = new Scanner(System.in);
-int n = sc.nextInt();
-int[] arr = new int[n];
+class Solution {
+public int maxFrequency(int[] nums, int k) {
+
+ Arrays.sort(nums);
+ int n = nums.length;
+  int maxFreq = 1;
 
 for(int i = 0; i < n; i++) {
- arr[i] = sc.nextInt();
-        }
- HashMap<Integer, Integer> map = new HashMap<>();
- for(int i = 0; i < n; i++) {
- map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
-        }
- int maxFreq = 0;
- int element = -1;
+int operations = k;
+int count = 1;
 
- for(Integer key : map.keySet()) {
-   if(map.get(key) > maxFreq) {
-   maxFreq = map.get(key);
-   element = key;
+for(int j = i - 1; j >= 0; j--) {
+int diff = nums[i] - nums[j];
+ if(operations >= diff) {
+   operations -= diff;
+   count++;
+  } else {
+    break;
+        }
+        }
+ if(count > maxFreq) {
+   maxFreq = count;
             }
         }
-
-   System.out.println(element);
+  return maxFreq;
     }
 }
